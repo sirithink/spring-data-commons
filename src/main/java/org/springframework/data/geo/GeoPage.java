@@ -28,7 +28,7 @@ import org.springframework.data.domain.Pageable;
  */
 public class GeoPage<T> extends PageImpl<GeoResult<T>> {
 
-	private static final long serialVersionUID = 23421312312412L;
+	private static final long serialVersionUID = -5655267379242128600L;
 	private final Distance averageDistance;
 
 	/**

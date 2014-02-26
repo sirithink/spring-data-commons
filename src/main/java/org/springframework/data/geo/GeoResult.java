@@ -72,7 +72,7 @@ public class GeoResult<T> {
 			return true;
 		}
 
-		if (obj == null || !getClass().equals(obj.getClass())) {
+		if (obj == null || !getClass().isInstance(obj)) {
 			return false;
 		}
 

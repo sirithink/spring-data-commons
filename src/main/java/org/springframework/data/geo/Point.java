@@ -83,7 +83,7 @@ public class Point {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!getClass().isInstance(obj)) {
 			return false;
 		}
 		Point other = (Point) obj;

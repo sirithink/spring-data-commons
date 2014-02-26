@@ -107,7 +107,7 @@ public class Distance {
 			return true;
 		}
 
-		if (obj == null || !getClass().equals(obj.getClass())) {
+		if (obj == null || !getClass().isInstance(obj)) {
 			return false;
 		}
 

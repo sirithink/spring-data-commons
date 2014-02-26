@@ -63,9 +63,11 @@ public class Box implements Shape {
 	 * @see org.springframework.data.mongodb.core.geo.Shape#asList()
 	 */
 	public List<? extends Object> asList() {
+
 		List<List<Double>> list = new ArrayList<List<Double>>();
 		list.add(getLowerLeft().asList());
 		list.add(getUpperRight().asList());
+
 		return list;
 	}
 
@@ -85,15 +87,15 @@ public class Box implements Shape {
 
 	@Override
 	public boolean equals(Object obj) {
+
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+
+		if (obj == null || !getClass().isInstance(obj)) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
+
 		Box that = (Box) obj;
 		return this.first.equals(that.first) && this.second.equals(that.second);
 	}

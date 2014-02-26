@@ -40,7 +40,7 @@ public class Polygon implements Shape, Iterable<Point> {
 	 * @param z
 	 * @param others
 	 */
-	public Polygon(Point x, Point y, Point z, Point... others) {
+	public <P extends Point> Polygon(P x, P y, P z, P... others) {
 
 		Assert.notNull(x);
 		Assert.notNull(y);
@@ -50,6 +50,23 @@ public class Polygon implements Shape, Iterable<Point> {
 		this.points = new ArrayList<Point>(3 + others.length);
 		this.points.addAll(Arrays.asList(x, y, z));
 		this.points.addAll(Arrays.asList(others));
+	}
+
+	/**
+	 * Creates a new {@link Polygon} for the given Points.
+	 * 
+	 * @param points
+	 */
+	public <P extends Point> Polygon(List<P> points) {
+
+		Assert.notNull(points);
+
+		this.points = new ArrayList<Point>(points.size());
+
+		for (Point point : points) {
+			Assert.notNull(point);
+			this.points.add(point);
+		}
 	}
 
 	/*
@@ -86,7 +103,7 @@ public class Polygon implements Shape, Iterable<Point> {
 			return true;
 		}
 
-		if (obj == null || !getClass().equals(obj.getClass())) {
+		if (obj == null || !getClass().isInstance(obj)) {
 			return false;
 		}
 

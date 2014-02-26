@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  */
 public class GeoResults<T> implements Iterable<GeoResult<T>> {
 
-	private final List<GeoResult<T>> results;
+	private final List<? extends GeoResult<T>> results;
 	private final Distance averageDistance;
 
 	/**
@@ -40,11 +40,11 @@ public class GeoResults<T> implements Iterable<GeoResult<T>> {
 	 * 
 	 * @param results must not be {@literal null}.
 	 */
-	public GeoResults(List<GeoResult<T>> results) {
+	public GeoResults(List<? extends GeoResult<T>> results) {
 		this(results, (Metric) null);
 	}
 
-	public GeoResults(List<GeoResult<T>> results, Metric metric) {
+	public GeoResults(List<? extends GeoResult<T>> results, Metric metric) {
 		this(results, calculateAverageDistance(results, metric));
 	}
 
@@ -55,7 +55,7 @@ public class GeoResults<T> implements Iterable<GeoResult<T>> {
 	 * @param averageDistance
 	 */
 	@PersistenceConstructor
-	public GeoResults(List<GeoResult<T>> results, Distance averageDistance) {
+	public GeoResults(List<? extends GeoResult<T>> results, Distance averageDistance) {
 		Assert.notNull(results);
 		this.results = results;
 		this.averageDistance = averageDistance;
@@ -74,8 +74,9 @@ public class GeoResults<T> implements Iterable<GeoResult<T>> {
 	 * (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
 	 */
+	@SuppressWarnings("unchecked")
 	public Iterator<GeoResult<T>> iterator() {
-		return results.iterator();
+		return (Iterator<GeoResult<T>>) results.iterator();
 	}
 
 	/**
@@ -98,7 +99,7 @@ public class GeoResults<T> implements Iterable<GeoResult<T>> {
 			return true;
 		}
 
-		if (obj == null || !getClass().equals(obj.getClass())) {
+		if (obj == null || !getClass().isInstance(obj)) {
 			return false;
 		}
 
